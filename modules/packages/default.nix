@@ -106,7 +106,7 @@
           nativeBuildInputs = [ pkgs.cmake ];
         };
 
-      version = "0.2.0-rc2";
+      version = "0.2.0";
     in
     {
       packages.default = pkgs.stdenv.mkDerivation (finalAttrs: {
@@ -175,7 +175,7 @@
 
         __structuredAttrs = true;
         cmakeFlags = [
-          (lib.cmakeBool "YUZU_ENABLE_LTO" true)
+          (lib.cmakeBool "ENABLE_LTO" true)
           (lib.cmakeBool "YUZU_TESTS" false)
           (lib.cmakeBool "DYNARMIC_TESTS" false)
 
