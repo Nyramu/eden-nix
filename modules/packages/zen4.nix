@@ -3,7 +3,7 @@
     { pkgs, ... }:
     let
       pname = "eden";
-      version = "0.2.0";
+      version = "0.2.1";
 
       src = pkgs.fetchurl {
         url = "https://stable.eden-emu.dev/v${version}/Eden-Linux-v${version}-rog-ally-clang-pgo.AppImage";
