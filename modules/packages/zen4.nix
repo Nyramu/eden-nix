@@ -7,7 +7,7 @@
 
       src = pkgs.fetchurl {
         url = "https://stable.eden-emu.dev/v${version}/Eden-Linux-v${version}-rog-ally-clang-pgo.AppImage";
-        hash = "sha256-VDmBde8K5dfepQd8gGA3OqFsrUBg2xrKP42n6dJ5UQE=";
+        hash = "sha256-Ak3+MH9+W1ObNUm9kkX2txybqpzHRPMdWNMYGFfYX/w=";
       };
 
       rawAppImage = pkgs.stdenv.mkDerivation {
