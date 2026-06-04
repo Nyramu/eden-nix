@@ -15,9 +15,9 @@
     flake-parts.lib.mkFlake { inherit inputs; } (import-tree ./modules);
 
   nixConfig = {
-    extra-substituters = [ "https://eden-emu-flake.cachix.org" ];
+    extra-substituters = [ "https://eden-nix.cachix.org" ];
     extra-trusted-public-keys = [
-      "eden-emu-flake.cachix.org-1:qMKfHpBsRhMpxrc4FawVy+IeYAvFhhv94qiB69Bl0RU="
+      "eden-nix.cachix.org-1:BrC9tVNflA7yeLft5i2SjZTlGs46cBpUgULgHbMj8/E="
     ];
   };
 }
