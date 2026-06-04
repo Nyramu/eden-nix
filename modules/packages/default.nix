@@ -116,7 +116,7 @@
           type = "git";
           url = "https://git.eden-emu.dev/eden-emu/eden.git";
           ref = "v${version}";
-          rev = "f0a4ac7359b6de6d6f1926c795831de01d4119d5";
+          rev = "58c1e20ee58efa3900ba616207d460886214480b";
           submodules = true;
         };
 
