@@ -166,10 +166,9 @@
           (lib.cmakeFeature "TITLE_BAR_FORMAT_RUNNING" "eden | {} (nix)")
 
           (lib.cmakeBool "SIRIT_USE_SYSTEM_SPIRV_HEADERS" true)
-          (lib.cmakeFeature "CMAKE_CXX_FLAGS" "-Wno-error -Wno-array-parameter -Wno-stringop-overflow")
         ];
 
-        env.NIX_CFLAGS_COMPILE = "-msse4.2";
+        env.NIX_CFLAGS_COMPILE = "-msse4.2 -Wno-error -Wno-array-parameter -Wno-stringop-overflow";
 
         qtWrapperArgs = [
           "--prefix LD_LIBRARY_PATH : ${
