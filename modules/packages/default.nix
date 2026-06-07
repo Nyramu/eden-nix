@@ -12,30 +12,8 @@
         qtwebengine
         qt5compat
         qtcharts
+        quazip
         ;
-
-      quazip = pkgs.stdenv.mkDerivation {
-        pname = "quazip";
-        version = "1.5-qt6";
-        src = pkgs.fetchFromGitHub {
-          owner = "crueter-archive";
-          repo = "quazip-qt6";
-          rev = "f838774d6306eb5a500af9ab336ec85f01ebd7ec";
-          hash = "sha256-Jp+v7uwoPxvarzOclgSnoGcwAPXKnm23yrZKtjJCHro=";
-        };
-        nativeBuildInputs = [
-          pkgs.cmake
-          wrapQtAppsHook
-        ];
-        buildInputs = [
-          qtbase
-          qtmultimedia
-          qtwayland
-          qttools
-          qtwebengine
-          qt5compat
-        ];
-      };
 
       mcl = pkgs.stdenv.mkDerivation {
         pname = "mcl";
@@ -50,45 +28,14 @@
         buildInputs = [ pkgs.fmt_11 ];
       };
 
-      sirit =
-        let
-          rev = "v1.0.2";
-        in
-        pkgs.stdenv.mkDerivation {
-          pname = "sirit";
-          version = "1.0.2";
-          src = pkgs.fetchFromGitHub {
-            owner = "eden-emulator";
-            repo = "sirit";
-            inherit rev;
-            hash = "sha256-0wjpQm8tWHeEebSiRGs7b8LYcA2d4MEbHuffP2eSNGU=";
-          };
-          nativeBuildInputs = [
-            pkgs.pkg-config
-            pkgs.cmake
-          ];
-          buildInputs = [ pkgs.spirv-headers ];
-          cmakeFlags = [ (lib.cmakeBool "SIRIT_USE_SYSTEM_SPIRV_HEADERS" true) ];
-        };
-
       nx_tzdb =
         let
           tzdbVersion = "121125";
         in
-        fetchTarball {
+        pkgs.fetchzip {
           url = "https://git.crueter.xyz/misc/tzdb_to_nx/releases/download/${tzdbVersion}/${tzdbVersion}.tar.gz";
-          sha256 = "sha256-6+qt4yzisNx8cAOrWVS+g/GCeTD37iejQN06Ij6OMxU=";
+          hash = "sha256-6+qt4yzisNx8cAOrWVS+g/GCeTD37iejQN06Ij6OMxU=";
         };
-
-      xbyak_new = pkgs.xbyak.overrideAttrs (_: {
-        version = "7.22";
-        src = pkgs.fetchFromGitHub {
-          owner = "herumi";
-          repo = "xbyak";
-          rev = "4e44f4614ddbf038f2a6296f5b906d5c72691e0f";
-          hash = "sha256-ZmdOjO5MbY+z+hJEVgpQzoYGo5GAFgwAPiv4vs/YMUA=";
-        };
-      });
 
       frozen =
         let
@@ -103,7 +50,26 @@
             inherit rev;
             hash = "sha256-zIczBSRDWjX9hcmYWYkbWY3NAAQwQtKhMTeHlYp4BKk=";
           };
-          nativeBuildInputs = [ pkgs.cmake ];
+
+          dontBuild = true;
+          installPhase = ''
+            mkdir -p $out/include
+            cp -r include/* $out/include/
+
+            mkdir -p $out/share/cmake/frozen
+            cat > $out/share/cmake/frozen/frozenConfig.cmake <<'EOF'
+            add_library(frozen::frozen-headers INTERFACE IMPORTED)
+            set_target_properties(frozen::frozen-headers PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "''${CMAKE_CURRENT_LIST_DIR}/../../../include")
+
+            add_library(frozen::frozen INTERFACE IMPORTED)
+            set_target_properties(frozen::frozen PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "''${CMAKE_CURRENT_LIST_DIR}/../../../include")
+
+            add_library(frozen INTERFACE IMPORTED)
+            set_target_properties(frozen PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "''${CMAKE_CURRENT_LIST_DIR}/../../../include")
+
+            set(frozen_FOUND TRUE)
+            EOF
+          '';
         };
 
       version = "0.2.1";
@@ -129,8 +95,6 @@
           pkgs.python3
           qttools
           wrapQtAppsHook
-          mcl
-          frozen
         ];
 
         buildInputs = [
@@ -146,7 +110,7 @@
           pkgs.vulkan-utility-libraries
           pkgs.spirv-tools
           pkgs.spirv-headers
-          sirit
+          pkgs.sirit
           pkgs.cubeb
           pkgs.enet
           pkgs.libopus
@@ -168,9 +132,9 @@
           pkgs.libusb1
           pkgs.discord-rpc
           pkgs.gamemode
+          pkgs.xbyak
           mcl
-          nx_tzdb
-          xbyak_new
+          frozen
         ];
 
         __structuredAttrs = true;
@@ -217,7 +181,7 @@
         '';
 
         postInstall = ''
-          install -Dm44 $src/dist/72-yuzu-input.rules $out/lib/udev/rules.d/72-yuzu-input.rules
+          install -Dm644 $src/dist/72-yuzu-input.rules $out/lib/udev/rules.d/72-yuzu-input.rules
         '';
 
         meta = {
