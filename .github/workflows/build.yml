@@ -3,6 +3,10 @@ name: Build and cache
 on:
   push:
     branches: [main]
+    paths:
+      - 'modules/packages/default.nix'
+      - 'flake.lock'
+      - 'modules/patches/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
