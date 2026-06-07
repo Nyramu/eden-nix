@@ -171,7 +171,14 @@
 
         env.NIX_CFLAGS_COMPILE = "-msse4.2";
 
-        qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${pkgs.vulkan-loader}/lib" ];
+        qtWrapperArgs = [
+          "--prefix LD_LIBRARY_PATH : ${
+            lib.makeLibraryPath [
+              pkgs.vulkan-loader
+              pkgs.pipewire
+            ]
+          }"
+        ];
 
         preConfigure = ''
           export SOURCE_DATE_EPOCH=${toString finalAttrs.src.lastModified}
