@@ -74,7 +74,7 @@
         zen2 = {
           src = pkgs.fetchurl {
             url = "https://stable.eden-emu.dev/v${version}/Eden-Linux-v${version}-steamdeck-clang-pgo.AppImage";
-            hash = "sha256-XMWzWKxkSbQAIbILokMLTRIwJzfbFcjL5bRs6aq4XOU=";
+            hash = "sha256-gIElCm1tuBubwplA3UGuQ3blNpWDanXoj4HsqSshKto=";
             executable = true;
           };
           description = "Nintendo Switch emulator (Zen 2 + PGO)";
