@@ -87,6 +87,7 @@ You can change the package by doing:
 Currently available packages:
 
 - `default`: Standard amd64 binary
+- `zen2`: Zen 2 + PGO optimizations wrapped Appimage
 - `zen4`: Zen 4 + PGO optimizations wrapped Appimage
 
 Every package installs Eden (binary or wrapped Appimage, depending on the
