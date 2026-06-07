@@ -28,7 +28,7 @@ Add this flake input:
 }
 ```
 
-Import the Home Manager module:
+Then import the Home Manager module:
 
 ```nix
 {
@@ -89,8 +89,8 @@ Currently available packages:
 - `zen4`: Zen 4 + PGO optimizations wrapped Appimage
 
 Every package installs Eden (binary or wrapped Appimage, depending on the
-package) and creates a `.desktop` entry. Launch from your application menu or
-terminal: `$ eden`
+package) and creates a `.desktop` entry. You can launch it from your application
+launcher or terminal: `$ eden`
 
 ## License
 
