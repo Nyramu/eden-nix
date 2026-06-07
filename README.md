@@ -39,7 +39,7 @@ Import the Home Manager module:
 ### Cache
 
 This flake sets `extra-substituters` and `extra-trusted-public-keys` via
-`nixConfig`, but you can set the cache manually by doing the following in your
+`nixConfig`, but you can set the cache manually by adding the following in your
 `configuration.nix`:
 
 ```nix
@@ -60,6 +60,8 @@ This flake sets `extra-substituters` and `extra-trusted-public-keys` via
 Enable Eden via the Home Manager module:
 
 ```nix
+{ ... }:
+
 {
   programs.eden = {
     enable = true;
@@ -71,6 +73,8 @@ This module uses the standard amd64 build by default, which is stored on Cachix.
 You can change the package by doing:
 
 ```nix
+{ inputs, pkgs, ... }:
+
 {
   programs.eden = {
     enable = true;
