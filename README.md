@@ -14,7 +14,8 @@ Nix flake for the [Eden](https://eden-emu.dev) Nintendo Switch emulator.
 
 ## What is this?
 
-A Nix flake that provides an Home Manager module and ready-to-use packages.
+A Nix flake that provides an Home Manager module and ready-to-use packages, all
+of them based on stable releases.
 
 ## Installation
 
